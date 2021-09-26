@@ -28,7 +28,7 @@ function Timer() {
     useEffect(() => {
 
         function switchMode() {
-            const nextMode = mode === 'work' ? 'break' : 'work';
+            const nextMode = modeRef.current === 'work' ? 'break' : 'work';
             const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
             
             setMode(nextMode);
@@ -73,12 +73,11 @@ function Timer() {
             textColor:'#fff',
             pathColor:mode === 'work' ? red : green,
             tailColor:'rgba(255,255,255,.2)',
-    
         })}/>
         <div style={{marginTop:'20px'}}>
             {isPaused 
-            ? <PlayButton onClick={() => { setIsPaused(false); isPausedRef.current = false; }}/> 
-            : <PauseButton onClick={() => { setIsPaused(true); isPausedRef.current = true; }}/>}
+            ? <PlayButton onClick={() => { setIsPaused(false); isPausedRef.current = false; }} /> 
+            : <PauseButton onClick={() => { setIsPaused(true); isPausedRef.current = true; }} />}
             </div>
             <div style={{marginTop:'20px'}}>
                 <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
