@@ -8,26 +8,25 @@ function Settings() {
     const settingsInfo = useContext(SettingsContext);
     return(
         <div style={{textAlign:'center'}}>
-
-            <label>work : {settingsInfo.workMinutes} min</label>
+            <label>work: {settingsInfo.workMinutes} min</label>
             <ReactSlider
                 className={'slider'}
                 thumbClassName={'thumb'}
                 trackClassName={'track'}
                 value={settingsInfo.workMinutes}
                 onChange={newValue => settingsInfo.setWorkMinutes(newValue)}
-                min={1}
+                min={.1}
                 //min={.1}
                 max={60}
                 />
-            <label>relax : {settingsInfo.breakMinutes} min</label>
+            <label>relax: {settingsInfo.breakMinutes} min</label>
             <ReactSlider
                 className={'slider green'}
                 thumbClassName={'thumb'}
                 trackClassName={'track'}
                 value={settingsInfo.breakMinutes}
                 onChange={newValue => settingsInfo.setBreakMinutes(newValue)}
-                min={1}
+                min={.1}
                 //min={.1}
                 max={15.0}
                 />
