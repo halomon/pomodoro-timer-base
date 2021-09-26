@@ -7,8 +7,9 @@ import BackButton from './BackButton';
 function Settings() {
     const settingsInfo = useContext(SettingsContext);
     return(
-        <div style={{textAlign:'left'}}>
-            <label>work minutes: {settingsInfo.workMinutes}:00</label>
+        <div style={{textAlign:'center'}}>
+
+            <label>work : {settingsInfo.workMinutes} min</label>
             <ReactSlider
                 className={'slider'}
                 thumbClassName={'thumb'}
@@ -16,9 +17,10 @@ function Settings() {
                 value={settingsInfo.workMinutes}
                 onChange={newValue => settingsInfo.setWorkMinutes(newValue)}
                 min={1}
-                max={100}
+                //min={.1}
+                max={60}
                 />
-            <label>break minutes: {settingsInfo.breakMinutes}:00</label>
+            <label>relax : {settingsInfo.breakMinutes} min</label>
             <ReactSlider
                 className={'slider green'}
                 thumbClassName={'thumb'}
@@ -26,7 +28,8 @@ function Settings() {
                 value={settingsInfo.breakMinutes}
                 onChange={newValue => settingsInfo.setBreakMinutes(newValue)}
                 min={1}
-                max={100}
+                //min={.1}
+                max={15.0}
                 />
                 <div style={{textAlign:'center',
                 marginTop:'20px'}}>

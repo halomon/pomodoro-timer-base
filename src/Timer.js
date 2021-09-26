@@ -21,27 +21,28 @@ function Timer() {
     const isPausedRef = useRef(isPaused);
     const modeRef = useRef(mode);
 
-    function switchMode() {
-        const nextMode = mode === 'work'? 'break' : 'work';
-        const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
-        setMode(nextMode);
-        modeRef.current = nextMode;
-        setSecondsLeft(nextSeconds);
-        secondsLeftRef.current = nextSeconds;
-    }
-
     function tick() {
         secondsLeftRef.current--;
 
         setSecondsLeft(secondsLeftRef.current);
     }
 
-    function initTimer() {
-        setSecondsLeft(settingsInfo.workMinutes * 60);
-    }
 
     useEffect(() => {
-        initTimer();
+
+        function switchMode() {
+            const nextMode = mode === 'work' ? 'break' : 'work';
+            const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
+            
+            setMode(nextMode);
+            modeRef.current = nextMode;
+
+            setSecondsLeft(nextSeconds);
+            secondsLeftRef.current = nextSeconds;
+        }
+
+        secondsLeftRef.current = settingsInfo.workMinutes *  60;
+        setSecondsLeft(secondsLeftRef.current);
 
         const interval = setInterval(() => {
             if (isPausedRef.current) {
@@ -53,6 +54,7 @@ function Timer() {
 
             tick();
         }, 1000);
+        
         return () => clearInterval(interval);
     }, [settingsInfo]);
 
@@ -79,15 +81,13 @@ function Timer() {
         <div style={{marginTop:'20px'}}>
             {isPaused 
             ? <PlayButton onClick={() => { setIsPaused(false); isPausedRef.current = false; }}/> 
-            : <PauseButton onClick={() => { setIsPaused(true); isPausedRef.current = false; }}/>}
-
+            : <PauseButton onClick={() => { setIsPaused(true); isPausedRef.current = true; }}/>}
             </div>
             <div style={{marginTop:'20px'}}>
                 <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
             </div>
     </div>
     );
-    
 }
 
 export default Timer;
